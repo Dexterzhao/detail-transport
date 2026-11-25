@@ -320,8 +320,8 @@ def runtime_info():
             "pillow": PIL.__version__, "platform": platform.system()}
     try:
         def git(*args):
-            return subprocess.check_output(["git", "-C", str(ROOT), *args],
-                                           text=True, stderr=subprocess.DEVNULL).strip()
+            return subprocess.check_output(["git", "-C", str(ROOT), *args], encoding="utf-8",
+                                           errors="surrogateescape", stderr=subprocess.DEVNULL).strip()
         if Path(git("rev-parse", "--show-toplevel")).resolve() == ROOT:
             info["commit"] = git("rev-parse", "HEAD")
             info["worktree_dirty"] = bool(git("status", "--porcelain"))

@@ -6,6 +6,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 from PIL import Image
@@ -16,6 +17,19 @@ import verify
 
 
 class TransportTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("git"), "Git is needed to record revision provenance")
+    def test_revision_capture_in_a_non_ascii_checkout(self):
+        with tempfile.TemporaryDirectory() as temp:
+            checkout = Path(temp) / "科研"
+            subprocess.run(["git", "init", "-q", str(checkout)], check=True)
+            subprocess.run(["git", "-C", str(checkout), "-c", "user.name=Test",
+                            "-c", "user.email=test@example.invalid", "commit", "-q",
+                            "--allow-empty", "-m", "test"], check=True)
+            with patch.object(pilot, "ROOT", checkout.resolve()):
+                info = pilot.runtime_info()
+            self.assertRegex(info["commit"], r"^[0-9a-f]{40,64}$")
+            self.assertFalse(info["worktree_dirty"])
+
     def test_rigid_motion_rotates_offsets_once(self):
         rest, faces = pilot.grid(5)
         rotation = np.array([[1., 0., 0.], [0., 0., -1.], [0., 1., 0.]])

@@ -2,7 +2,7 @@
 
 This repository reproduces the synthetic experiment in §3.4 and Figure 3 of Ziang Zhao's *Detail-Preserving Sketch-Guided Editing of Layered 3D Game Assets*. The question is what happens to an existing relief when its base bends and stretches. The code applies three transport rules to the same base, measures changes inside the moving region and at its protected edge, and checks the result when the handles return to rest.
 
-**Proposal snapshot:** Git tag `pilot-v1.0`. The [original measurements](reference/measures.csv), [extent fits](reference/contours.csv), and [Figure 3](reference/transport_check.png) are versioned alongside the code. The [animated cycle](reference/cycle_demo.gif) shows all eleven states. The experiment runs on a CPU using Python, NumPy, and Pillow.
+**Proposal snapshot:** Git tag `pilot-v1.0.1`. The [original measurements](reference/measures.csv), [extent fits](reference/contours.csv), and [Figure 3](reference/transport_check.png) are versioned alongside the code. The [animated cycle](reference/cycle_demo.gif) shows all eleven states. The experiment runs on a CPU using Python, NumPy, and Pillow.
 
 The initial commit `45e0518` records the contents of the earlier `transport_pilot.zip` (SHA-256 `c5e2711be14f251149088a6c777be96a145280f288772412ac78864a805f0398`). Later commits separate reference outputs from new runs. The tagged version is the baseline for extending the work.
 
@@ -10,7 +10,7 @@ The initial commit `45e0518` records the contents of the earlier `transport_pilo
 
 ## Reproduce the proposal
 
-From the repository root, use Python 3.12 and the pinned [dependencies](requirements.txt). The original measurements used CPython 3.12.14, NumPy 2.3.5, and Pillow 13.0.0 on Windows. For a copy delivered as a Git bundle, first run `git clone detail-transport.bundle detail-transport` from the directory containing the bundle, then `cd detail-transport`. To reproduce the cited version after the repository has advanced, run `git switch --detach pilot-v1.0`.
+From the repository root, use Python 3.12 and the pinned [dependencies](requirements.txt). The original measurements used CPython 3.12.14, NumPy 2.3.5, and Pillow 13.0.0 on Windows. For a copy delivered as a Git bundle, first run `git clone detail-transport.bundle detail-transport` from the directory containing the bundle, then `cd detail-transport`. To reproduce the cited version after the repository has advanced, run `git switch --detach pilot-v1.0.1`.
 
 **Windows PowerShell**
 
@@ -77,6 +77,6 @@ The 99 measurement rows are repeated observations of **three fields on one mesh*
 
 ## Extend the experiment
 
-Create a branch from `pilot-v1.0` and copy `config.json` for the next experiment. The runner accepts different cycle schedules, stretch or bend magnitudes, grid resolutions, field subsets, and transport exponents. Keep at least two vertex columns in each handle strip and one free column between them. The extent control relies on both columns adjacent to the right edge being driven. Give each experiment a new output directory and store its configuration with the study. The verifier targets the tagged proposal configuration. For a new condition, retain the original regression run and compare your new condition against its own recorded hypotheses and metrics.
+Create a branch from `pilot-v1.0.1` and copy `config.json` for the next experiment. The runner accepts different cycle schedules, stretch or bend magnitudes, grid resolutions, field subsets, and transport exponents. Keep at least two vertex columns in each handle strip and one free column between them. The extent control relies on both columns adjacent to the right edge being driven. Give each experiment a new output directory and store its configuration with the study. The verifier targets the tagged proposal configuration. For a new condition, retain the original regression run and compare your new condition against its own recorded hypotheses and metrics.
 
 The current solver uses a dense Laplacian inverse for the small synthetic grid. Moving to production meshes will require a sparse factorization. An informative next test is to keep a boss circular and let an adjacent groove lengthen on a multi-chart asset. Give each feature an independently specified geometric target and start the second edit from the first approval. This directly tests the two assumptions that the present patch experiment simplifies.
