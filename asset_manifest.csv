@@ -1,0 +1,4 @@
+asset,origin,representation,vertices,triangles,protected_faces
+beaded_band,Procedurally created for this numerical check,unit square; one analytical vector field; one UV chart,289,512,128
+fluted_panel,Procedurally created for this numerical check,unit square; one analytical vector field; one UV chart,289,512,128
+ridge_medallion,Procedurally created for this numerical check,unit square; one analytical vector field; one UV chart,289,512,128

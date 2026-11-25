@@ -1,0 +1,13 @@
+{
+  "grid_vertices_per_side": 17,
+  "fixed_strip_max_x": 0.25,
+  "driven_strip_min_x": 0.875,
+  "arap_iterations": 35,
+  "stretch": 0.35,
+  "bend": 0.35,
+  "peak_sequence": [0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 0.8, 0.6, 0.4, 0.2, 0.0],
+  "policies": {"rotation": 0.0, "half_stretch": 0.5, "full_gradient": 1.0},
+  "failure_tolerance": 1e-10,
+  "contour_target_amplitude": 0.7,
+  "assets": ["beaded_band", "fluted_panel", "ridge_medallion"]
+}
